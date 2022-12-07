@@ -1,0 +1,2 @@
+srcs/requirements/nginx/.dockerignore
+srcs/requirements/wordpress/.dockerignore
