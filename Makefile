@@ -1,4 +1,4 @@
-.phony: all clean fclean re prune
+.phony: all clean fclean re prune pre
 
 all:
 	mkdir -p /home/fred/data
@@ -18,3 +18,5 @@ re: fclean all
 
 prune:
 	docker system prune -a -f
+
+pre: fclean prune all
