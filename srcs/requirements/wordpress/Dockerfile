@@ -5,8 +5,8 @@ RUN apt-get update && apt-get install -y \
     php7.3-fpm \
     php7.3-mysql \
 	mariadb-client \ 
-	curl && \
-	rm -rf /var/lib/apt/lists/*
+	curl \
+&&  rm -rf /var/lib/apt/lists/*
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 
