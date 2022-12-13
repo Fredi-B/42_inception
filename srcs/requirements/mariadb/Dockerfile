@@ -1,10 +1,14 @@
 FROM debian:buster
 
-# rm -rf... -> cache busting: (see https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run \
-# and https://websetnet.net/fixing-unable-to-parse-package-file-var-lib-apt-lists-error-in-ubuntu-and-other-linux-distributions/)
+# update && install in one RUN
+# "ensures your Dockerfile installs the latest package versions" #cachebusting
+# (https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run)
+# '-y' answers yes to all prompts
+# 'rm -rf...' delete the apt cache, to prevent potential parsing errors #cachebusting
+# (https://websetnet.net/fixing-unable-to-parse-package-file-var-lib-apt-lists-error-in-ubuntu-and-other-linux-distributions/)
 RUN apt-get update && apt-get install -y \
-    mariadb-server && \
-    rm -rf /var/lib/apt/lists/*
+    mariadb-server \
+ && rm -rf /var/lib/apt/lists/*
 
 # copy our config and setup files
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d
