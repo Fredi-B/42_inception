@@ -14,11 +14,12 @@ RUN apt-get update && apt-get install -y \
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d
 COPY ./tools/setup_db.sql /
 
-RUN service mysql start && \
-    mysql < setup_db.sql && \
+# start mysql, set it up, stop it and delete setup_db.sql file
+RUN service mysql start ; \
+    mysql < setup_db.sql ; \
     rm -rf setup_db.sql
 
 # mysqld_safe "is a wrapper that starts mysqld with some extra safety features."
 # "[I]f mysqld_safe notices that mysqld has crashed, [...][it, FB] will automatically restart mysqld."
-# https://mariadb.com/kb/en/mysqld_safe/
+# (https://mariadb.com/kb/en/mysqld_safe/)
 CMD ["mysqld_safe"]
