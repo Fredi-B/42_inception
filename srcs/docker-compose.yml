@@ -8,7 +8,7 @@ services:
         networks:
             - inception
         volumes:
-            - mariadb_volume:/var/lib/mysql
+            - wp_database:/var/lib/mysql
         restart: unless-stopped
 
     wordpress:
@@ -18,7 +18,7 @@ services:
         networks:
             - inception
         volumes:
-            - wordpress_volume:/var/www/wordpress
+            - wp_files:/var/www/wordpress
         environment:
             - WP_DB_NAME=$WP_DB_NAME
             - WP_DB_USER=$WP_DB_USER
@@ -45,7 +45,7 @@ services:
         networks:
             - inception
         volumes:
-            - wordpress_volume:/var/www/wordpress
+            - wp_files:/var/www/wordpress
         depends_on:
           - wordpress
         restart: unless-stopped
@@ -55,13 +55,14 @@ networks:
 
    
 volumes:
-    mariadb_volume:
+    wp_database:
         driver: local
         driver_opts:
             type: none
             o: bind
             device: /home/fred/data/wp_db
-    wordpress_volume:
+
+    wp_files:
         driver: local
         driver_opts:
             type: none
