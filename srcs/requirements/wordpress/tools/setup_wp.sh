@@ -5,6 +5,8 @@
 # change directory to /var/www/wordpress
 cd /var/www/wordpress
 
+wp core download --allow-root
+
 # create wp-config.php file and configure the wp instance to accept the MariaDB databank
 wp core config	\
 				--dbname=$WP_DB_NAME \
