@@ -1,6 +1,14 @@
 FROM debian:buster
 
-# php7.3-fpm    https://www.php.net/manual/en/install.fpm.php
+# update && install in one RUN
+# "ensures your Dockerfile installs the latest package versions" #cachebusting
+# (https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run)
+# '-y' answers yes to all prompts
+# 'rm -rf...' delete the apt cache, to prevent potential parsing errors #cachebusting
+# (https://websetnet.net/fixing-unable-to-parse-package-file-var-lib-apt-lists-error-in-ubuntu-and-other-linux-distributions/)
+#
+# php7.3-fpm    (https://packages.debian.org/buster/php && https://www.php.net/manual/en/install.fpm.php)
+# php connects the containers
 RUN apt-get update && apt-get install -y \
     php7.3-fpm \
     php7.3-mysql \
@@ -8,19 +16,26 @@ RUN apt-get update && apt-get install -y \
 	curl \
 &&  rm -rf /var/lib/apt/lists/*
 
-COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
+# copy custom wordpress config file from the host VM into the container
+RUN mkdir -p /etc/php/7.3/fpm
+COPY conf/www.conf /etc/php/7.3/fpm/pool.d
 
-ADD https://wordpress.org/latest.tar.gz /var/www/latest.tar.gz
-
-RUN cd /var/www && \
-	tar -xvf latest.tar.gz && \
-	rm -rf latest.tar.gz
-
-RUN	curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar --output /usr/bin/wp --silent
-RUN	chmod +x ./usr/bin/wp
-
+# creates needed directory
+# resolves the error: (Unable to create the PID file (/run/php/php7.3-fpm.pid).: No such file or directory)
 RUN mkdir /run/php
 
+# install WordPress Commandline tool in /usr/local/bin and rename to wp-cli
+# && chmod execution rights, to use as command
+RUN	curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar --output /usr/bin/wp --silent \
+&&	chmod +x ./usr/bin/wp
+
+# needed?
+# defines 9000 as the port that this container will listen on at runtime.
+# EXPOSE 9000
+
+# COPY the setup_wp script
+# chmod execution rights to launch it in local on our computer
+# use it as ENTRYPOINT for the container
 COPY ./tools/setup_wp.sh /var/www/wordpress/config.sh
 RUN chmod +x /var/www/wordpress/config.sh
-CMD ["bash", "/var/www/wordpress/config.sh"]
+ENTRYPOINT ["var/www/wordpress/config.sh"]
