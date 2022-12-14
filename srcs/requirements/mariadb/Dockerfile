@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     mariadb-server \
  && rm -rf /var/lib/apt/lists/*
 
-# copy our config and setup files
+# copy our mariadb config and setup files from the host VM into the container
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d
 COPY ./tools/setup_db.sql /
 
