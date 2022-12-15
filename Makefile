@@ -3,13 +3,14 @@
 .phony: all clean fclean re prune pre
 
 # Build and run all containers for LEMP stack via docker-compose.yml
-# '--env-file' tells docker-compose where to find the .env file  
+# '--env-file':	tells docker-compose where to find the .env file
+# '-d':			detached mode: run container in the background
 # creates necessary directories first
 all:
 	mkdir -p /home/fred/data
 	mkdir -p /home/fred/data/wp_db
 	mkdir -p /home/fred/data/wp_files
-	docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up 
+	docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up -d
 
 # Stop all containers for LEMP stack via docker-compose.yml
 clean:
