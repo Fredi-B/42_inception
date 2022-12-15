@@ -5,6 +5,8 @@
 # change directory to /var/www/wordpress
 cd /var/www/wordpress
 
+# download wp
+# (https://code.tutsplus.com/articles/download-and-install-wordpress-via-the-shell-over-ssh--wp-24403)
 wp core download --allow-root
 
 # create wp-config.php file and configure the wp instance to accept the MariaDB databank

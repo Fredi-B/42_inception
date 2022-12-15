@@ -1,4 +1,25 @@
-version: '3.5'
+# (https://docs.docker.com/compose/compose-file/)
+
+version: '3'
+
+networks:
+    inception:
+
+# (https://blog.code4hire.com/2018/06/define-named-volume-with-host-mount-in-the-docker-compose-file/)
+volumes:
+    wp_database:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: /home/fred/data/wp_db
+
+    wp_files:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: /home/fred/data/wp_files
 
 services:
     mariadb:
@@ -9,6 +30,7 @@ services:
             - inception
         volumes:
             - wp_database:/var/lib/mysql
+        # (https://stackoverflow.com/questions/61725195/difference-in-docker-restart-policy-between-on-failure-and-unless-stopped)
         restart: unless-stopped
 
     wordpress:
@@ -49,22 +71,3 @@ services:
         depends_on:
           - wordpress
         restart: unless-stopped
-
-networks:
-    inception:
-
-   
-volumes:
-    wp_database:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: /home/fred/data/wp_db
-
-    wp_files:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: /home/fred/data/wp_files

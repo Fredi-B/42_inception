@@ -26,6 +26,9 @@ RUN mkdir /run/php
 
 # install WordPress Commandline tool in /usr/local/bin and rename to wp-cli
 # && chmod execution rights, to use as command
+# (https://code.tutsplus.com/articles/download-and-install-wordpress-via-the-shell-over-ssh--wp-24403)
+# (https://www.dreamhost.com/blog/guide-to-wp-cli/#:~:text=The%20WP%2DCLI%20is%20a,faster%20using%20the%20WP%2DCLI)
+# (https://wordpress.stackexchange.com/questions/293124/shortest-way-to-install-wp-cli)
 RUN	curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar --output /usr/bin/wp --silent \
 &&	chmod +x ./usr/bin/wp
 
