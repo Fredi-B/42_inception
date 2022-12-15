@@ -32,10 +32,6 @@ RUN mkdir /run/php
 RUN	curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar --output /usr/bin/wp --silent \
 &&	chmod +x ./usr/bin/wp
 
-# needed?
-# defines 9000 as the port that this container will listen on at runtime.
-# EXPOSE 9000
-
 # COPY the setup_wp script
 # chmod execution rights to launch it in local on our computer
 # use it as ENTRYPOINT for the container
