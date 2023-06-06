@@ -2,7 +2,7 @@
 
 This project aims to broaden the knowledge of system administration by using Docker to set up a LEMP stack (Linux, Nginx, MySQL, and PHP).
 
-## Contents
+## Table of Contents
 - [Requirements](#requirements)
 - [Installation and Usage](#installation-and-usage)
 - [Description](#description)
