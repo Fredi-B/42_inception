@@ -33,7 +33,7 @@ This project consists of setting up a small infrastructure. Here is an example d
 ![Diagram of the expected result:](https://github.com/Fredi-B/42_inception/assets/79904261/a02adc36-87d5-4e5c-8f42-26b7a0cdd41e)
 
 
-Each service has to 1,124 × 1,430run in a dedicated container. You also have to write your own Dockerfiles, one per service. The Dockerfiles must be called in your `docker-compose.yml` by your Makefile. It means you have to build the Docker images of your project yourself. It is forbidden to pull ready-made Docker images or use services such as DockerHub (except for Alpine/Debian).
+Each service has to run in a dedicated container. You also have to write your own Dockerfiles, one per service. The Dockerfiles must be called in your `docker-compose.yml` by your Makefile. It means you have to build the Docker images of your project yourself. It is forbidden to pull ready-made Docker images or use services such as DockerHub (except for Alpine/Debian).
 
 ## Description
 
