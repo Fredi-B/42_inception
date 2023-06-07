@@ -21,8 +21,9 @@ install with `sudo apt-get install` if needed:
 
 1. Clone the repository: `git clone git@github.com:Fredi-B/42_inception.git`
 2. Navigate to the project directory: `cd 42_inception`
-3. Build the Docker images and set up the application: `make all`
-4. Access the application through your web browser: `https://fbechtol.42.fr`
+3. Create .env file, copy .env.example and edit it to fit your needs. `cd srcs && touch .env`
+4. Build the Docker images and set up the application from the root of the directory: `make`
+5. Access the application through your web browser: `https://localhost`
 
 ## Description
 
@@ -55,7 +56,6 @@ Your containers must restart in case of a crash.
 - Using `network: host`, `--link`, or `links:` is forbidden. The network line must be present in your `docker-compose.yml` file.
 - Your containers must not be started with a command running an infinite loop. This applies to any command used as an entrypoint or in entrypoint scripts.
 - In your WordPress database, there must be two users, one of them being the administrator.
-- Your volumes will be available in the `/home/login/data` folder of the host machine using Docker. Replace `login` with your own login.
 - The latest tag is prohibited.
 - No password must be present in your Dockerfiles.
 - It is mandatory to use environment variables.
