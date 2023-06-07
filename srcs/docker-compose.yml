@@ -12,14 +12,14 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: /home/fred/data/wp_db
+            device: /Users/fbechtol/Documents/data/wp_db
 
     wp_files:
         driver: local
         driver_opts:
             type: none
             o: bind
-            device: /home/fred/data/wp_files
+            device: /Users/fbechtol/Documents/data/wp_files
 
 services:
     mariadb:
